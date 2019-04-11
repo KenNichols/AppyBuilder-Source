@@ -384,25 +384,35 @@ public class Slider extends AndroidViewComponent implements SeekBar.OnSeekBarCha
     }
 
     //Trigger the event, reporting this new value
-    PositionChanged(thumbPosition);
+    PositionChanged(thumbPosition, fromUser);
   }
 
   /**
    * Indicates that position of the slider thumb has changed.
    */
   @SimpleEvent
-  public void PositionChanged(float thumbPosition) {
-    EventDispatcher.dispatchEvent(this, "PositionChanged", thumbPosition);
+  public void PositionChanged(float thumbPosition, boolean fromUser) {
+    EventDispatcher.dispatchEvent(this, "PositionChanged", thumbPosition, fromUser);
   }
 
   @Override
   public void onStartTrackingTouch(SeekBar seekBar) {
-    // TODO Auto-generated method stub
+    TouchDown();
+  }
+  
+  @SimpleEvent
+  public void TouchDown() {
+    EventDispatcher.dispatchEvent(this, "TouchDown");
   }
 
   @Override
   public void onStopTrackingTouch(SeekBar seekBar) {
-    // TODO Auto-generated method stub
+    TouchUp();
+  }
+  
+  @SimpleEvent
+  public void TouchUp() {
+    EventDispatcher.dispatchEvent(this, "TouchUp");
   }
 
   /**
